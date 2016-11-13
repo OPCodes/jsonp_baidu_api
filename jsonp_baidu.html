@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<title></title>
+		<style>
+			
+		</style>
+		<script>
+			//jsonp  
+			/*
+				1. 使用get的方式 传一个callback
+				2. 要执行的callback 必须是一个全局函数
+
+				使用定义script标签的方式，利用src可以跨域的特性，去访问远程的一个地址，返回一段文本，拿到浏览器中会把文本解析为js代码，其中这段文本中会有一个函数执行，函数是调用者自己定义的一个函数。
+			*/
+
+			function fn1(data){
+				// console.log( data );
+				var str = '';
+				for( var i = 0; i < data.s.length; i++ ){
+					str += '<li><a target="_blank" href="https://www.baidu.com/s?wd='+data.s[i]+'">'+data.s[i]+'</a></li>';
+				}
+
+				list.innerHTML = str;
+			}
+
+			window.onload = function(){
+				searChText.oninput = function (){
+
+					var script = document.createElement("script");
+					//请求的是百度的接口
+
+					script.src = 'http://suggestion.baidu.com/su?wd='+this
+					.value+"&cb=fn1";
+
+					document.body.appendChild(script);  
+				}
+			};
+
+		</script>
+	</head>
+	<body>
+		<input type="" id="searChText" />
+		<ul id="list"></ul>
+	</body>
+</html>
